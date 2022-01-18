@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -43,14 +44,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'note'],
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
