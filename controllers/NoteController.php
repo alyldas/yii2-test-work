@@ -97,7 +97,7 @@ class NoteController extends Controller
      * @throws NotAcceptableHttpException в случае ошибки валидации
      * @throws ServerErrorHttpException если не удалось сохранить модель в БД
      */
-    public function actionCreate(): Response
+    public function actionCreate(): array
     {
         $note = new Note();
         $note->title = Yii::$app->request->getBodyParam('title');
@@ -105,7 +105,7 @@ class NoteController extends Controller
         $note->published_at = Yii::$app->request->getBodyParam('published_at');
         $note->author_id = Yii::$app->user->id;
         if ($note->save()) {
-            return $this->redirect(Url::to(['view', 'id' => $note->id]));
+            return ['success' => true, 'id' => $note->id];
         } elseif ($note->hasErrors()) {
             throw new NotAcceptableHttpException('Ошибка валидации: ' . implode(' ', $note->firstErrors));
         } else {
@@ -117,7 +117,7 @@ class NoteController extends Controller
      * @throws NotAcceptableHttpException в случае ошибки валидации
      * @throws ServerErrorHttpException если не удалось сохранить модель в БД
      */
-    public function actionUpdate(int $id): Response
+    public function actionUpdate(int $id): array
     {
         $note = $this->findModel($id);
         if ($note->author->id !== Yii::$app->user->id) {
@@ -140,7 +140,7 @@ class NoteController extends Controller
             $note->published_at = $published_at;
         }
         if ($note->save()) {
-            return $this->redirect(Url::to(['view', 'id' => $note->id]));
+            return ['success' => true];
         } elseif ($note->hasErrors()) {
             throw new NotAcceptableHttpException('Ошибка валидации: ' . implode(' ', $note->firstErrors));
         } else {
@@ -152,7 +152,7 @@ class NoteController extends Controller
      * @throws NotAcceptableHttpException в случае ошибки валидации
      * @throws ServerErrorHttpException если не удалось сохранить модель в БД
      */
-    public function actionDelete(int $id): Response
+    public function actionDelete(int $id): array
     {
         $note = $this->findModel($id);
         if ($note->author->id !== Yii::$app->user->id) {
@@ -162,7 +162,7 @@ class NoteController extends Controller
             throw new ForbiddenHttpException('Вам не разрешено удалять заметки, созданные более 24 часов назад');
         }
         if ($note->delete()) {
-            return $this->redirect(Url::to(['view', 'id' => $note->id]));
+            return ['success' => true];
         } elseif ($note->hasErrors()) {
             throw new NotAcceptableHttpException('Ошибка валидации: ' . implode(' ', $note->firstErrors));
         } else {
