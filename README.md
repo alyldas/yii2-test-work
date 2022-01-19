@@ -21,11 +21,11 @@ yii migrate
 ENDPOINTS
 ---------
 ~~~
-GET|HEAD /users         - список заметок
-POST /users             - создание заметки   *
-GET|HEAD /users/{id}    - просмотр заметки
-PATCH|PUT /users/{id}   - обновление заметки *
-DELETE /users/{id}      - удаление заметки   *
+GET|HEAD /notes         - список заметок
+POST /notes             - создание заметки   *
+GET|HEAD /notes/{id}    - просмотр заметки
+PATCH|PUT /notes/{id}   - обновление заметки *
+DELETE /notes/{id}      - удаление заметки   *
 ~~~
 
 \* - для доступа к этим endpoint требуется авторизация посредством использования Bearer Token Auth.
